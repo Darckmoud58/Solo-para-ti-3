@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at top, #1a2a6c, #16213e, #0f3460);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 3s ease;
+}
+
+/* Amanecer */
+.amanecer {
+    background: linear-gradient(to top, #ff9a9e, #fad0c4, #fbc2eb);
+    transition: background 4s ease;
+}
+
+
+/* Estrellas */
+.estrella {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: parpadeo 2s infinite alternate;
+}
+
+@keyframes parpadeo {
+    from {
+        opacity: 0.2;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Sobre */
+#sobre {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background: #ff4d6d;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+#sobre::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff758f;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    transition: 1s;
+}
+
+#sobre.abrir::before {
+    transform: rotateX(180deg);
+    transform-origin: top;
+}
+
+/* Carta */
+#carta {
+    position: fixed;
+    left: -600px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90%;
+    max-width: 450px;
+    background: #111;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 0, 100, 0.5);
+    transition: left 2s ease;
+}
+
+#carta.mostrar {
+    left: 5%;
+}
+
+.latir {
+    animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Árbol */
+.arbol {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 450px;
+    opacity: 0;
+    transition: opacity 2s ease, left 2s ease, transform 2s ease;
+}
+
+/* Cuando se mueve a la derecha */
+.arbol.derecha {
+    left: 85%;
+    transform: translateX(-50%);
+}
+
+
+
+.tronco {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 0;
+    background: linear-gradient(to bottom, #8b5e3c, #5a3a1a);
+    border-radius: 20px;
+    opacity: 0;
+    transition: height 2s ease, opacity 2s ease;
+}
+
+.crecer-tronco {
+    height: 250px;
+    opacity: 1;
+}
+
+.follaje {
+    position: absolute;
+    bottom: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+}
+
+.rama {
+    position: absolute;
+    left: 50%;
+    width: 10px;
+    background: linear-gradient(#6b3b2a, #4b2a1a);
+    border-radius: 6px;
+    transform-origin: top center;
+    transition: height 700ms ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.rama::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(255, 0, 150, 0.6), transparent);
+    border-radius: 6px;
+    transform: rotate(45deg);
+    opacity: 0.5;
+}
+
+.corazon {
+    position: absolute;
+    font-size: 18px;
+    color: #ff4d6d;
+    opacity: 0;
+    animation: aparecer 0.5s forwards;
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+    }
+}
+
+.corazon.sway {
+    animation-name: aparecer, sway;
+    animation-duration: 0.4s, 4s;
+    animation-timing-function: ease-out, ease-in-out;
+    animation-iteration-count: 1, infinite;
+}
+
+@keyframes sway {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-4px) rotate(-6deg); }
+    50% { transform: translateY(0) rotate(0deg); }
+    75% { transform: translateY(4px) rotate(6deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+.corazon.volar {
+    animation: vuelo 4s ease-in-out forwards;
+}
+
+@keyframes vuelo {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--dx), var(--dy)) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Anillo */
+#anillo {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 60px;
+    opacity: 0;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Galería */
+#galeria {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#galeria img {
+    width: 80%;
+    max-width: 300px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #ff4d6d;
+    animation: zoom 1s ease;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+
+#luna {
+    position: fixed;
+    bottom: 120px;
+    right: 10%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #fff, #ddd);
+    border-radius: 50%;
+    box-shadow: 0 0 40px white;
+    opacity: 0;
+    transition: opacity 3s ease;
+    z-index: -1;
+}
+
+
+.arbol::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 10px;
+    height: 200px;
+    background: linear-gradient(to top, rgba(255, 0, 150, 0.6), transparent);
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.arbol.derecha::after {
+    opacity: 1;
+}
+
+.corazon-final {
+    animation: latidoFinal 1s infinite;
+}
+
+@keyframes latidoFinal {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.onda {
+    position: absolute;
+    border: 2px solid rgba(255, 100, 150, 0.7);
+    border-radius: 50%;
+    animation: expandir 2s ease-out forwards;
+}
+
+@keyframes expandir {
+    from {
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+    }
+
+    to {
+        width: 400px;
+        height: 400px;
+        opacity: 0;
+    }
+}
+
+/* Árbol en primer plano */
+.arbol.primer-plano {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 70vh;
+    z-index: 9999;
+    transition: all 1s ease;
+}
+
+.arbol.primer-plano .tronco {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tronco.crecer-tronco {
+    height: 200px;
+    opacity: 1;
+}
+
+.tronco.crecer-tronco-grande {
+    height: 340px;
+}
+
+.arbol.primer-plano .follaje {
+    bottom: auto;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 60%;
+}
+
+.corazon {
+    position: absolute;
+    font-size: 18px;
+    color: #ff4d6d;
+    opacity: 0;
+    animation: aparecer 0.5s forwards;
+}
+
+/* Galería: imagenes del carrusel */
+.galeria-img {
+    width: 70%;
+    max-width: 700px;
+    margin: 10px auto;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #ff4d6d;
+    display: block;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.galeria-img[style*="display: none"] {
+    opacity: 0;
+    transform: scale(0.96);
+}
+
+.galeria-img[style*="display: block"] {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* mover el árbol a la derecha (posición final) */
+.arbol.to-right {
+    left: 85% !important;
+    top: 60% !important;
+    transform: translateX(-50%) scale(0.6) !important;
+    transition: all 900ms ease;
+    z-index: 3;
+}
