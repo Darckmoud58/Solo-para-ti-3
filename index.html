@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro Árbol Realista ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Mi Amor ❤️</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,14 +17,14 @@
             <div class="tapa"></div>
             <div class="corazon-cierre">❤️</div>
         </div>
-        <p class="instruccion">Toca para abrir nuestro corazón</p>
+        <p class="instruccion">Toca para abrir ❤️</p>
     </div>
 
     <div id="escenario">
         <div id="estrellas"></div>
         
         <div class="contenedor-arbol" id="arbol-contenedor">
-            <svg viewBox="0 0 500 600" class="tronco-realista">
+            <svg viewBox="0 0 500 600" preserveAspectRatio="xMidYBottom meet" class="tronco-realista">
                 <defs>
                     <linearGradient id="gradTronco" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" style="stop-color:#1a0f0a" />
@@ -38,12 +38,10 @@
                     <path d="M250,450 Q180,400 120,330" stroke-width="15" />
                     <path d="M250,350 Q250,250 210,180" stroke-width="12" />
                     <path d="M250,350 Q250,250 290,180" stroke-width="12" />
-                    <path d="M380,320 Q410,290 440,260" stroke-width="6" />
-                    <path d="M380,320 Q360,280 340,240" stroke-width="6" />
-                    <path d="M120,330 Q90,300 60,270" stroke-width="6" />
-                    <path d="M120,330 Q140,290 160,250" stroke-width="6" />
-                    <path d="M210,180 Q190,150 170,110" stroke-width="4" />
-                    <path d="M290,180 Q310,150 330,110" stroke-width="4" />
+                    <path d="M380,320 Q440,260 460,220" stroke-width="6" />
+                    <path d="M120,330 Q60,270 40,230" stroke-width="6" />
+                    <path d="M210,180 Q170,110 150,70" stroke-width="4" />
+                    <path d="M290,180 Q330,110 350,70" stroke-width="4" />
                 </g>
             </svg>
             <div id="follaje"></div>
@@ -56,15 +54,15 @@
                 <div id="timer">00d 00h 00m 00s</div>
             </div>
             <p id="texto-carta"></p>
-            <button class="btn-final" onclick="mostrarGaleria()">💍 ¿Quieres seguir escribiendo esta historia?</button>
+            <button class="btn-final" onclick="mostrarGaleria()">💍 Ver Recuerdos</button>
         </div>
     </div>
 
     <div id="galeria-final">
         <div class="visor-fotos">
-            <img id="foto-actual" src="" alt="Nuestro Recuerdo">
+            <img id="foto-actual" src="" alt="Recuerdo">
         </div>
-        <button onclick="location.reload()">Regresar</button>
+        <button class="btn-regresar" onclick="location.reload()">Regresar</button>
     </div>
 
     <script src="script.js"></script>
