@@ -113,40 +113,10 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 20vw;
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 300px;
+    height: 450px;
     opacity: 0;
-    transition: opacity 2s ease, transform 2s ease;
-}
-
-.arbol .tronco {
-    width: 5vw;
-    height: 10vh;
-    background: linear-gradient(90deg, #8B4513, #A0522D);
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: height 2s ease;
-}
-
-.arbol .tronco.crecer-tronco {
-    height: 20vh;
-}
-
-.arbol .follaje {
-    width: 15vw;
-    height: 20vh;
-    background: radial-gradient(circle, #FF6F61, #FF3D3D);
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    margin-top: -5vh;
-    transition: transform 2s ease;
-}
-
-.arbol .follaje.crecer-follaje {
-    transform: scale(1.2);
+    transition: opacity 2s ease, left 2s ease, transform 2s ease;
 }
 
 /* Cuando se mueve a la derecha */
@@ -155,119 +125,55 @@ body {
     transform: translateX(-50%);
 }
 
-.arbol.to-right {
-    left: 85%;
-    transform: translateX(-50%) scale(0.6);
-    transition: all 1s ease;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .arbol {
-        width: 30vw;
-        height: 40vh;
-    }
-
-    .arbol .tronco {
-        width: 8vw;
-        height: 15vh;
-    }
-
-    .arbol .follaje {
-        width: 25vw;
-        height: 30vh;
-    }
-}
-
-/* Anillo */
-#anillo {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 60px;
-    opacity: 0;
-    animation: flotar 3s ease-in-out infinite;
-}
-
-@keyframes flotar {
-    0% {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    50% {
-        transform: translateX(-50%) translateY(-20px);
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-/* Galería */
-#galeria {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#galeria img {
-    width: 80%;
-    max-width: 300px;
-    margin: 10px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #ff4d6d;
-    animation: zoom 1s ease;
-}
-
-@keyframes zoom {
-    from {
-        transform: scale(0);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
 
 
-#luna {
-    position: fixed;
-    bottom: 120px;
-    right: 10%;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, #fff, #ddd);
-    border-radius: 50%;
-    box-shadow: 0 0 40px white;
-    opacity: 0;
-    transition: opacity 3s ease;
-    z-index: -1;
-}
-
-
-.arbol::after {
-    content: "";
+.tronco {
     position: absolute;
     bottom: 0;
     left: 50%;
-    width: 10px;
-    height: 200px;
-    background: linear-gradient(to top, rgba(255, 0, 150, 0.6), transparent);
     transform: translateX(-50%);
+    width: 40px;
+    height: 0;
+    background: linear-gradient(to bottom, #8b5e3c, #5a3a1a);
+    border-radius: 20px;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: height 2s ease, opacity 2s ease;
 }
 
-.arbol.derecha::after {
+.crecer-tronco {
+    height: 250px;
     opacity: 1;
+}
+
+.follaje {
+    position: absolute;
+    bottom: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+}
+
+.rama {
+    position: absolute;
+    left: 50%;
+    width: 10px;
+    background: linear-gradient(#6b3b2a, #4b2a1a);
+    border-radius: 6px;
+    transform-origin: top center;
+    transition: height 700ms ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.rama::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(255, 0, 150, 0.6), transparent);
+    border-radius: 6px;
+    transform: rotate(45deg);
+    opacity: 0.5;
 }
 
 .corazon {
@@ -403,6 +309,81 @@ body {
 
 .arbol.derecha::after {
     opacity: 1;
+}
+
+.corazon-final {
+    animation: latidoFinal 1s infinite;
+}
+
+@keyframes latidoFinal {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.onda {
+    position: absolute;
+    border: 2px solid rgba(255, 100, 150, 0.7);
+    border-radius: 50%;
+    animation: expandir 2s ease-out forwards;
+}
+
+@keyframes expandir {
+    from {
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+    }
+
+    to {
+        width: 400px;
+        height: 400px;
+        opacity: 0;
+    }
+}
+
+/* Árbol en primer plano */
+.arbol.primer-plano {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 70vh;
+    z-index: 9999;
+    transition: all 1s ease;
+}
+
+.arbol.primer-plano .tronco {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tronco.crecer-tronco {
+    height: 200px;
+    opacity: 1;
+}
+
+.tronco.crecer-tronco-grande {
+    height: 340px;
+}
+
+.arbol.primer-plano .follaje {
+    bottom: auto;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 60%;
 }
 
 .corazon {
