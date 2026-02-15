@@ -107,6 +107,72 @@ body {
     }
 }
 
+/* Árbol */
+.arbol {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 450px;
+    opacity: 0;
+    transition: opacity 2s ease, left 2s ease, transform 2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.arbol .tronco {
+    width: 50px;
+    height: 150px;
+    background: linear-gradient(to bottom, #8B4513, #5A3A1A);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.arbol .follaje {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #FF6F61, #FF3D3D);
+    border-radius: 50%;
+    position: relative;
+    z-index: 0;
+    margin-top: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .arbol {
+        width: 200px;
+        height: 300px;
+    }
+
+    .arbol .tronco {
+        width: 30px;
+        height: 100px;
+    }
+
+    .arbol .follaje {
+        width: 150px;
+        height: 150px;
+    }
+}
+
 /* Cuando se mueve a la derecha */
 .arbol.derecha {
     left: 85%;
@@ -410,82 +476,4 @@ body {
     transform: translateX(-50%) scale(0.6) !important;
     transition: all 900ms ease;
     z-index: 3;
-}
-
-/* Estilo para el árbol realista */
-.arbol-realista {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.tronco-realista {
-    width: 5%;
-    height: 40%;
-    background: #8B4513;
-    border-radius: 10px;
-}
-
-.ramas-realistas {
-    position: absolute;
-    bottom: 40%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.rama-realista {
-    width: 20%;
-    height: 10%;
-    background: #228B22;
-    border-radius: 50%;
-    margin: 5px 0;
-    animation: sway 3s infinite alternate ease-in-out;
-}
-
-@keyframes sway {
-    0% {
-        transform: rotate(-5deg);
-    }
-    100% {
-        transform: rotate(5deg);
-    }
-}
-
-/* Ajustes para hacer la página responsiva */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    #carta {
-        width: 100%;
-        max-width: 90%;
-        left: 5%;
-    }
-
-    .arbol-realista {
-        height: 30vh;
-    }
-
-    .tronco-realista {
-        width: 8%;
-        height: 30%;
-    }
-
-    .rama-realista {
-        width: 30%;
-        height: 8%;
-    }
-
-    #galeria img {
-        width: 100%;
-        height: auto;
-    }
 }
