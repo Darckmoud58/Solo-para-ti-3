@@ -1,96 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Amor ❤️</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para Mi Amor ❤️</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Música -->
-<audio id="musica" src="music/Locos.mp3"></audio>
+    <audio id="musica" loop>
+        <source src="music/Locos.mp3" type="audio/mpeg">
+    </audio>
 
-<div id="sobre" onclick="abrirSobre()"></div>
+    <div id="pantalla-sobre">
+        <div id="sobre" onclick="abrirSobre()">
+            <div class="solapa"></div>
+        </div>
+        <p class="texto-instruccion">Toca el sobre para abrir ❤️</p>
+    </div>
 
-<div id="carta">
-<h1>Para el amor de mi vida ❤️</h1>
-<p id="mensaje"></p>
+    <div id="escenario">
+        
+        <div class="arbol-container">
+            <div class="arbol">
+                <div class="tronco">
+                    <div class="rama rama-1"></div>
+                    <div class="rama rama-2"></div>
+                    <div class="rama rama-3"></div>
+                    <div class="rama rama-4"></div>
+                </div>
+                <div class="follaje" id="follaje"></div>
+            </div>
+        </div>
 
-<div class="contador">
-Mi amor por ti comenzó hace:
-<div id="tiempo"></div>
-</div>
+        <div id="carta">
+            <h1 class="titulo">Para el amor de mi vida <span style="color: #ff4d6d;">❤️</span></h1>
+            
+            <div class="contenido-carta">
+                <p id="mensaje-texto"></p>
+            </div>
 
-<div id="sorpresa" onclick="animacionFinal()">💍 ¿Quieres seguir escribiendo esta historia conmigo?</div>
-</div>
+            <div class="contador-container">
+                <p class="etiqueta-tiempo">Juntos desde hace:</p>
+                <div id="tiempo">Calculando...</div>
+            </div>
 
-<div class="arbol">
-<div class="tronco"></div>
-<div class="follaje" id="follaje"></div>
-</div>
+            <button class="boton-final" onclick="animacionFinal()">
+                💍 ¿Quieres seguir escribiendo esta historia?
+            </button>
+        </div>
 
-<!-- Anillo flotante -->
-<div id="anillo">💍</div>
+    </div>
 
-<div id="luna"></div>
+    <div id="anillo-container">
+        <div id="anillo">💍</div>
+    </div>
 
-<!-- Galería -->
-<div id="galeria">
-<h2>Nuestros Recuerdos ❤️</h2>
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (1).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (2).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (3).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (4).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (5).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (6).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (7).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (8).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM (9).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.24 PM.jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (1).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (10).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (11).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (2).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (3).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (4).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (5).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (6).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (7).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (8).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM (9).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.25 PM.jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (1).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (2).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (3).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (4).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (5).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (6).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM (7).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.44.26 PM.jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (1).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (2).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (3).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (4).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (5).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (6).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM (7).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.09 PM.jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (1).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (10).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (11).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (2).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (3).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (4).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (5).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (6).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (7).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (8).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM (9).jpeg">
-<img src="img/WhatsApp Image 2026-02-14 at 8.46.10 PM.jpeg">
-<button onclick="descargarFotos()">Descargar recuerdos</button>
-</div>
+    <div id="luna"></div>
 
-<script src="script.js"></script>
+    <div id="galeria">
+        <h2>Nuestros Recuerdos ❤️</h2>
+        <div class="marco-foto">
+            <img id="foto-actual" src="" alt="Foto">
+        </div>
+        <button class="boton-reiniciar" onclick="location.reload()">Volver al inicio</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
