@@ -113,45 +113,45 @@ body {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
-    height: 450px;
+    width: 250px;
+    height: 400px;
     opacity: 0;
-    transition: opacity 2s ease, left 2s ease, transform 2s ease;
+    transition: opacity 2s ease, transform 2s ease;
 }
-
-/* Cuando se mueve a la derecha */
-.arbol.derecha {
-    left: 85%;
-    transform: translateX(-50%);
-}
-
-
 
 .tronco {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
+    width: 30px;
     height: 0;
     background: linear-gradient(to bottom, #8b5e3c, #5a3a1a);
-    border-radius: 20px;
+    border-radius: 15px;
     opacity: 0;
     transition: height 2s ease, opacity 2s ease;
 }
 
 .crecer-tronco {
-    height: 250px;
+    height: 300px;
     opacity: 1;
 }
 
 .follaje {
     position: absolute;
-    bottom: 250px;
+    bottom: 300px;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, #ff4d6d, #ff758f);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.follaje.mostrar {
+    opacity: 1;
 }
 
 .rama {
@@ -422,4 +422,41 @@ body {
     transform: translateX(-50%) scale(0.6) !important;
     transition: all 900ms ease;
     z-index: 3;
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #sobre {
+        width: 200px;
+        height: 150px;
+    }
+
+    #carta {
+        max-width: 300px;
+        padding: 15px;
+    }
+
+    .arbol {
+        width: 200px;
+        height: 300px;
+    }
+
+    .tronco {
+        width: 20px;
+    }
+
+    .follaje {
+        width: 200px;
+        height: 200px;
+    }
+
+    #galeria img {
+        width: 100%;
+        height: auto;
+    }
 }

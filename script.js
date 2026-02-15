@@ -16,10 +16,34 @@ function abrirSobre() {
 
         document.getElementById("sobre").style.display = "none";
 
-        /* Mostrar árbol centrado */
-        /* Mostrar el árbol en primer plano antes de la carta */
+        // Mostrar árbol centrado y animar su crecimiento
         mostrarArbolPrimerPlano();
 
+        // Crear ramas y animarlas
+        setTimeout(() => {
+            const cont = document.getElementById('follaje');
+            cont.innerHTML = '';
+
+            const ramas = 12;
+            for (let b = 0; b < ramas; b++) {
+                const rama = document.createElement('div');
+                rama.className = 'rama';
+                rama.style.top = (30 + b * 5) + '%';
+                const ang = -60 + b * 10; // ángulo más natural
+                rama.style.transform = 'rotate(' + ang + 'deg)';
+                rama.style.height = '0px';
+                cont.appendChild(rama);
+
+                setTimeout(() => {
+                    rama.style.height = '50px';
+                }, b * 200);
+            }
+
+            // Generar corazones densos en el follaje
+            setTimeout(() => {
+                generarCorazonesDensos(cont, 300);
+            }, ramas * 200);
+        }, 2000);
     }, 1000);
 }
 
@@ -29,86 +53,21 @@ function mostrarArbolPrimerPlano() {
     arbol.classList.add('primer-plano');
     arbol.style.opacity = '1';
 
-    /* Hacer crecer el tronco más grande en primer plano */
+    /* Hacer crecer el tronco */
     let tronco = document.querySelector('.tronco');
     tronco.classList.add('crecer-tronco');
     setTimeout(() => {
         tronco.classList.add('crecer-tronco-grande');
     }, 100);
 
-    /* Después de crecer, formar corazones (más densos) */
-    const cont = document.getElementById('follaje');
-    cont.innerHTML = '';
-
-    /* Crear ramas con curvatura y corazones */
-    const ramas = 12;
-    for (let b = 0; b < ramas; b++) {
-        const rama = document.createElement('div');
-        rama.className = 'rama';
-        rama.style.top = (30 + b * 5) + '%';
-        const ang = -60 + b * 10; // ángulo más natural
-        rama.style.transform = 'rotate(' + ang + 'deg)';
-        rama.style.height = '0px';
-        cont.appendChild(rama);
-
-        // Animar crecimiento de la rama
-        setTimeout(((r, idx) => {
-            return () => {
-                r.style.height = (100 + idx * 10) + 'px';
-            };
-        })(rama, b), 700 + b * 200);
-
-        // Crear hojas (corazones) en la rama
-        setTimeout(((r, idx) => {
-            return () => {
-                const hojas = 8 + Math.floor(Math.random() * 5);
-                for (let h = 0; h < hojas; h++) {
-                    const cor = document.createElement('div');
-                    cor.className = 'corazon';
-                    cor.innerHTML = '❤️';
-                    const posX = 10 + Math.random() * 60;
-                    const posY = (h / hojas) * (parseInt(r.style.height || 100));
-                    cor.style.left = (50 + (posX - 30) * (idx % 2 === 0 ? 1 : -1)) + 'px';
-                    cor.style.top = (parseInt(r.style.top || 0) + posY / 2) + 'px';
-                    if (Math.random() < 0.3) {
-                        cor.classList.add('volar');
-                        const dx = (Math.random() * 400 + 100) * (Math.random() < 0.5 ? -1 : 1);
-                        const dy = -(Math.random() * 300 + 100);
-                        cor.style.setProperty('--dx', dx + 'px');
-                        cor.style.setProperty('--dy', dy + 'px');
-                        cor.style.animationDelay = (Math.random() * 1.2) + 's';
-                        cor.style.animationDuration = (2 + Math.random() * 2) + 's';
-                    }
-                    cont.appendChild(cor);
-                }
-            };
-        })(rama, b), 900 + b * 220);
-    }
-
-    /* Generar un relleno denso de corazones en forma de corazón */
+    /* Mostrar follaje después de un tiempo */
     setTimeout(() => {
-        generarCorazonesDensos(cont, 200);
+        let follaje = document.querySelector('.follaje');
+        follaje.classList.add('mostrar');
+
+        /* Generar corazones en el follaje */
+        generarCorazonesDensos(follaje, 200);
     }, 2000);
-
-    /* Completar formación y luego mover el árbol a la derecha mostrando la carta */
-    const totalDelay = 900 + ramas * 220 + 1000;
-    setTimeout(() => {
-        formarCorazon(true);
-    }, 2500);
-
-    setTimeout(() => {
-        arbol.classList.add('to-right');
-        setTimeout(() => {
-            arbol.classList.remove('primer-plano');
-            arbol.style.zIndex = '';
-        }, 800);
-        setTimeout(() => {
-            const carta = document.getElementById('carta');
-            carta.classList.add('mostrar');
-            document.getElementById('musica').play();
-            escribir();
-        }, 900);
-    }, totalDelay + 400);
 }
 
 /* Genera muchos corazones siguiendo la curva del corazón para crear un relleno denso */
@@ -297,3 +256,19 @@ function iniciarCarousel() {
         imgs[current].style.display = 'block';
     }, 3000);
 }
+
+/* Soporte para eventos de touch */
+const sobre = document.getElementById("sobre");
+
+// Detectar eventos de touch
+sobre.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    abrirSobre();
+});
+
+const sorpresa = document.getElementById("sorpresa");
+
+sorpresa.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    animacionFinal();
+});
