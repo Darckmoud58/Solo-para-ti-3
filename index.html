@@ -16,35 +16,29 @@
         <div id="sobre" onclick="abrirSobre()">
             <div class="solapa"></div>
         </div>
-        <p class="texto-instruccion">Toca el sobre para abrir ❤️</p>
+        <p class="texto-instruccion">Toca el sobre para empezar ❤️</p>
     </div>
 
     <div id="escenario">
         
         <div class="arbol-container">
-            <div class="arbol">
-                <div class="tronco">
-                    <div class="rama rama-1"></div>
-                    <div class="rama rama-2"></div>
-                    <div class="rama rama-3"></div>
-                    <div class="rama rama-4"></div>
-                </div>
-                <div class="follaje" id="follaje"></div>
-            </div>
+            <svg class="tronco-svg" viewBox="0 0 500 500" preserveAspectRatio="xMidYBottom">
+                <path d="M250,500 C220,450 280,400 240,350 C200,300 260,250 230,200 C210,170 180,180 160,150 M240,350 C280,300 320,280 340,200 C350,160 380,150 400,120 M230,200 C230,150 250,120 250,80" 
+                      stroke="#4a3b2a" stroke-width="15" fill="none" stroke-linecap="round" />
+            </svg>
+            
+            <div class="follaje" id="follaje"></div>
         </div>
 
         <div id="carta">
             <h1 class="titulo">Para el amor de mi vida <span style="color: #ff4d6d;">❤️</span></h1>
-            
             <div class="contenido-carta">
                 <p id="mensaje-texto"></p>
             </div>
-
             <div class="contador-container">
-                <p class="etiqueta-tiempo">Juntos desde hace:</p>
+                <p class="etiqueta-tiempo">Nuestra historia lleva:</p>
                 <div id="tiempo">Calculando...</div>
             </div>
-
             <button class="boton-final" onclick="animacionFinal()">
                 💍 ¿Quieres seguir escribiendo esta historia?
             </button>
@@ -55,7 +49,6 @@
     <div id="anillo-container">
         <div id="anillo">💍</div>
     </div>
-
     <div id="luna"></div>
 
     <div id="galeria">

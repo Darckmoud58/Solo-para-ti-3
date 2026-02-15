@@ -1,7 +1,5 @@
-// CONFIGURACIÓN: Fecha de inicio de la relación
-const fechaInicio = new Date("2023-05-20T00:00:00"); 
-
-// Fotos para el final
+// CONFIGURACIÓN
+const fechaInicio = new Date("2023-05-20T00:00:00");
 const fotos = [
     "img/WhatsApp Image 2026-02-14 at 8.44.24 PM (1).jpeg",
     "img/WhatsApp Image 2026-02-14 at 8.44.24 PM (2).jpeg",
@@ -55,11 +53,9 @@ const fotos = [
     "img/WhatsApp Image 2026-02-14 at 8.46.10 PM.jpeg"
 ];
 
-// 1. ABRIR EL SOBRE
+// 1. ABRIR SOBRE
 function abrirSobre() {
-    const audio = document.getElementById("musica");
-    audio.play().catch(e => console.log("Interacción requerida para audio"));
-
+    document.getElementById("musica").play().catch(e => console.log("Click necesario para audio"));
     document.getElementById("sobre").classList.add("abierto");
     document.querySelector(".texto-instruccion").style.opacity = "0";
 
@@ -70,124 +66,115 @@ function abrirSobre() {
     }, 1000);
 }
 
-// 2. ANIMACIÓN DEL ÁRBOL
+// 2. CRECER ÁRBOL
 function crecerArbol() {
-    const tronco = document.querySelector(".tronco");
-    tronco.classList.add("crecido"); // Crece el tronco y las ramas
+    document.querySelector(".arbol-container").classList.add("crecer-tronco");
 
-    // Esperar a que crezca el tronco para poner hojas
+    // Esperar a que se dibuje el tronco para sacar hojas
     setTimeout(() => {
-        generarHojas(150); // Genera 150 corazones
-        
-        // MOVER ÁRBOL Y MOSTRAR CARTA (La transición clave)
+        generarCopaCorazon(200); // 200 Hojas
+
+        // Mover árbol y mostrar carta
         setTimeout(() => {
             document.querySelector(".arbol-container").classList.add("mover-izquierda");
             document.getElementById("carta").classList.add("visible");
-            efectoMecanografia();
-            iniciarViento(); // Inicia corazones volando
-        }, 3000); // 3 segundos después de empezar a crecer
+            escribirCarta();
+            iniciarViento();
+        }, 3500);
 
-    }, 2000);
+    }, 2500);
 }
 
-// 3. GENERAR HOJAS (Forma de corazón grande)
-function generarHojas(cantidad) {
+// 3. GENERAR HOJAS EN FORMA DE CORAZÓN (La clave del diseño)
+function generarCopaCorazon(cantidad) {
     const follaje = document.getElementById("follaje");
-    
+
     for (let i = 0; i < cantidad; i++) {
         setTimeout(() => {
-            const corazon = document.createElement("div");
-            corazon.innerHTML = "❤️";
-            corazon.style.position = "absolute";
-            corazon.style.fontSize = (Math.random() * 15 + 10) + "px";
-            corazon.style.color = ["#ff4d6d", "#ff758f", "#c9184a"][Math.floor(Math.random()*3)];
-            
-            // Matemáticas para forma de corazón
-            const angle = Math.random() * Math.PI * 2;
-            const r = Math.sqrt(Math.random()) * 120; // Radio disperso
-            const x = r * Math.cos(angle); 
-            const y = r * Math.sin(angle) - 20; // -20 para subirlo un poco
+            const el = document.createElement("div");
+            el.innerHTML = "❤️";
+            el.style.position = "absolute";
+            el.style.fontSize = (Math.random() * 15 + 10) + "px";
+            el.style.color = ["#ff4d6d", "#ff758f", "#d90429", "#ffccd5"][Math.floor(Math.random() * 4)];
 
-            corazon.style.left = x + "px";
-            corazon.style.top = (y - 250) + "px"; // Ajuste vertical respecto al tronco
-            
-            // Animación de aparición
-            corazon.style.opacity = "0";
-            corazon.style.transition = "opacity 0.5s";
-            
-            follaje.appendChild(corazon);
-            
-            // Pequeño retardo para que aparezca
-            setTimeout(() => corazon.style.opacity = "1", 50);
+            // FÓRMULA MATEMÁTICA DEL CORAZÓN
+            // Esto asegura que las hojas formen un corazón perfecto sobre el tronco
+            const t = Math.random() * Math.PI * 2;
+            const r = Math.sqrt(Math.random()); // Para rellenar por dentro
+
+            // Ajustar tamaño del corazón (Escala)
+            const escala = 12;
+
+            // Posición X e Y
+            const x = escala * 16 * Math.pow(Math.sin(t), 3);
+            const y = -escala * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+
+            // Aplicamos aleatoriedad para que se vea natural (efecto árbol)
+            const finalX = (x * r) + 250; // Centrado en 250 (mitad del SVG)
+            const finalY = (y * r) + 150; // Altura de la copa
+
+            el.style.left = finalX + "px";
+            el.style.top = finalY + "px";
+            el.style.opacity = "0";
+            el.style.transition = "opacity 0.8s, transform 3s";
+
+            follaje.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = "1";
+                el.style.transform = "scale(1.1)"; // Efecto latido leve
+            }, 50);
 
         }, i * 10);
     }
 }
 
-// 4. TEXTO TIPO MÁQUINA DE ESCRIBIR
-function efectoMecanografia() {
-    const texto = "Cada segundo a tu lado es un regalo. Eres mi refugio, mi paz y mi alegría. Te amo más de lo que las palabras pueden explicar.";
-    const elemento = document.getElementById("mensaje-texto");
-    let i = 0;
-    
-    function escribir() {
-        if (i < texto.length) {
-            elemento.innerHTML += texto.charAt(i);
-            i++;
-            setTimeout(escribir, 40);
-        }
-    }
-    escribir();
-}
-
-// 5. EFECTO VIENTO (Corazones volando de fondo)
+// 4. VIENTO (Corazones volando)
 function iniciarViento() {
     setInterval(() => {
         const c = document.createElement("div");
         c.classList.add("corazon-viento");
         c.innerHTML = "❤️";
         c.style.left = Math.random() * 100 + "vw";
-        c.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        c.style.animationDuration = (Math.random() * 3 + 4) + "s";
         document.body.appendChild(c);
-        
         setTimeout(() => c.remove(), 6000);
-    }, 300);
+    }, 400);
 }
 
-// 6. CONTADOR DE TIEMPO
+// 5. CARTA Y TIEMPO
+function escribirCarta() {
+    const texto = "Cada día a tu lado es mi regalo favorito. Eres mi paz, mi amor y mi vida entera. Gracias por elegirme para caminar juntos.";
+    const p = document.getElementById("mensaje-texto");
+    let i = 0;
+    function type() {
+        if (i < texto.length) { p.innerHTML += texto.charAt(i); i++; setTimeout(type, 50); }
+    }
+    type();
+}
+
 setInterval(() => {
-    const ahora = new Date();
-    const diff = ahora - fechaInicio;
-    
+    const diff = new Date() - fechaInicio;
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const m = Math.floor((diff / (1000 * 60)) % 60);
     const s = Math.floor((diff / 1000) % 60);
-    
     document.getElementById("tiempo").innerText = `${d} días, ${h}h ${m}m ${s}s`;
 }, 1000);
 
-// 7. FINAL (Anillo y Galería)
+// 6. FINAL
 function animacionFinal() {
     document.getElementById("anillo-container").style.display = "flex";
     document.getElementById("luna").style.opacity = "1";
-    
     setTimeout(() => {
         document.getElementById("anillo-container").style.display = "none";
         document.getElementById("galeria").style.display = "flex";
-        iniciarCarrusel();
-    }, 3000);
-}
 
-// 8. CARRUSEL DE FOTOS
-function iniciarCarrusel() {
-    let index = 0;
-    const img = document.getElementById("foto-actual");
-    
-    img.src = fotos[0]; // Primera foto
-    
-    setInterval(() => {
-        index = (index + 1) % fotos.length;
-        img.src = fotos[index];
+        let idx = 0;
+        const img = document.getElementById("foto-actual");
+        img.src = fotos[0];
+        setInterval(() => {
+            idx = (idx + 1) % fotos.length;
+            img.src = fotos[idx];
+        }, 3000);
     }, 3000);
 }
