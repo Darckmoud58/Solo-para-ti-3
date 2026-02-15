@@ -107,18 +107,6 @@ body {
     }
 }
 
-/* Árbol */
-.arbol {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 450px;
-    opacity: 0;
-    transition: opacity 2s ease, left 2s ease, transform 2s ease;
-}
-
 /* Cuando se mueve a la derecha */
 .arbol.derecha {
     left: 85%;
@@ -422,4 +410,82 @@ body {
     transform: translateX(-50%) scale(0.6) !important;
     transition: all 900ms ease;
     z-index: 3;
+}
+
+/* Estilo para el árbol realista */
+.arbol-realista {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.tronco-realista {
+    width: 5%;
+    height: 40%;
+    background: #8B4513;
+    border-radius: 10px;
+}
+
+.ramas-realistas {
+    position: absolute;
+    bottom: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rama-realista {
+    width: 20%;
+    height: 10%;
+    background: #228B22;
+    border-radius: 50%;
+    margin: 5px 0;
+    animation: sway 3s infinite alternate ease-in-out;
+}
+
+@keyframes sway {
+    0% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(5deg);
+    }
+}
+
+/* Ajustes para hacer la página responsiva */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    #carta {
+        width: 100%;
+        max-width: 90%;
+        left: 5%;
+    }
+
+    .arbol-realista {
+        height: 30vh;
+    }
+
+    .tronco-realista {
+        width: 8%;
+        height: 30%;
+    }
+
+    .rama-realista {
+        width: 30%;
+        height: 8%;
+    }
+
+    #galeria img {
+        width: 100%;
+        height: auto;
+    }
 }

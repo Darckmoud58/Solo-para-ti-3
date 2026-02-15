@@ -16,14 +16,13 @@ function abrirSobre() {
 
         document.getElementById("sobre").style.display = "none";
 
-        /* Mostrar árbol centrado */
         /* Mostrar el árbol en primer plano antes de la carta */
         mostrarArbolPrimerPlano();
 
     }, 1000);
 }
 
-/* Mostrar árbol en primer plano y animarlo (tronco grande + corazones) */
+/* Mostrar el árbol en primer plano y animarlo (tronco grande + corazones) */
 function mostrarArbolPrimerPlano() {
     let arbol = document.querySelector('.arbol');
     arbol.classList.add('primer-plano');
