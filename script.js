@@ -16,54 +16,32 @@ function abrirSobre() {
 
         document.getElementById("sobre").style.display = "none";
 
-        /* Mostrar árbol centrado */
-        /* Mostrar el árbol en primer plano antes de la carta */
-        mostrarArbolPrimerPlano();
+        // Mostrar el árbol en el centro
+        mostrarArbolCentrado();
 
     }, 1000);
 }
 
-/* Mostrar árbol en primer plano y animarlo (tronco grande + corazones) */
-function mostrarArbolPrimerPlano() {
+/* Mostrar árbol en el centro */
+function mostrarArbolCentrado() {
     let arbol = document.querySelector('.arbol');
-    arbol.classList.add('primer-plano');
+    arbol.style.opacity = '0';
+    arbol.style.transition = 'opacity 2s ease';
     arbol.style.opacity = '1';
 
-    /* Hacer crecer el tronco */
-    let tronco = document.querySelector('.tronco');
-    tronco.style.transition = 'height 2s ease';
-    tronco.style.height = '200px';
-
-    /* Formar el corazón con el follaje */
-    const follaje = document.querySelector('.follaje');
-    follaje.style.transition = 'transform 2s ease';
-    follaje.style.transform = 'scale(1.2)';
-
-    /* Generar corazones densos en el follaje */
-    generarCorazonesDensos(follaje, 150);
-
-    /* Mostrar mensaje desde la izquierda */
     setTimeout(() => {
-        const mensaje = document.getElementById('mensaje');
-        mensaje.style.transition = 'transform 2s ease, opacity 2s ease';
-        mensaje.style.transform = 'translateX(0)';
-        mensaje.style.opacity = '1';
+        hacerCrecerTronco();
     }, 2000);
+}
 
-    /* Mover el árbol a la derecha */
+/* Hacer crecer el tronco */
+function hacerCrecerTronco() {
+    let tronco = document.querySelector('.tronco');
+    tronco.classList.add('crecer-tronco');
+
     setTimeout(() => {
-        arbol.classList.add('to-right');
-        setTimeout(() => {
-            arbol.classList.remove('primer-plano');
-            arbol.style.zIndex = '';
-        }, 800);
-        setTimeout(() => {
-            const carta = document.getElementById('carta');
-            carta.classList.add('mostrar');
-            document.getElementById('musica').play();
-            escribir();
-        }, 900);
-    }, 4000);
+        formarCorazon();
+    }, 2000);
 }
 
 /* Genera muchos corazones siguiendo la curva del corazón para crear un relleno denso */
@@ -78,6 +56,10 @@ function generarCorazonesDensos(cont, cantidad) {
         const cor = document.createElement('div');
         cor.className = 'corazon';
         cor.innerHTML = '❤️';
+        cor.style.position = 'absolute';
+        cor.style.left = `${50 + x * escala}%`;
+        cor.style.top = `${50 - y * escala}%`;
+        cont.appendChild(cor);
 
         // dispersión y escala para simular densidad
         const jitterX = (Math.random() - 0.5) * 30;
