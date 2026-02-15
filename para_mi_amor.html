@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #1a2a6c, #16213e, #0f3460);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 3s ease;
+        }
+
+        .amanecer {
+            background: radial-gradient(circle at bottom, #ff9a9e, #fad0c4, #fbc2eb);
+        }
+
+        /* 🌟 Estrellas */
+        .estrella {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: parpadeo 2s infinite alternate;
+        }
+
+        @keyframes parpadeo {
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 💌 Sobre */
+        #sobre {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background: #ff4d6d;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 1s;
+        }
+
+        #sobre::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff758f;
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            transition: 1s;
+        }
+
+        #sobre.abrir::before {
+            transform: rotateX(180deg);
+            transform-origin: top;
+        }
+
+        /* 📜 Carta */
+        #carta {
+            position: absolute;
+            width: 90%;
+            max-width: 450px;
+            background: #111;
+            padding: 25px;
+            border-radius: 20px;
+            display: none;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 0, 100, 0.5);
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 15px;
+        }
+
+        .contador {
+            color: #ff4d6d;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* 🌳 Árbol */
+        .arbol {
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 300px;
+            height: 400px;
+        }
+
+        .tronco {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 200px;
+            background: #8b5e3c;
+            border-radius: 10px;
+        }
+
+        .follaje {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 250px;
+        }
+
+        /* ❤️ Corazón progresivo */
+        .corazon {
+            position: absolute;
+            font-size: 18px;
+            color: #ff4d6d;
+            opacity: 0;
+            animation: aparecer 0.5s forwards;
+        }
+
+        @keyframes aparecer {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 💓 Latido */
+        .latir {
+            animation: latido 1.5s infinite;
+        }
+
+        @keyframes latido {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* ✨ Brillo */
+        .brillo {
+            text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
+        }
+
+        /* 💍 Sorpresa */
+        #sorpresa {
+            margin-top: 15px;
+            cursor: pointer;
+            color: #ff80ab;
+            display: none;
+        }
+
+        #descargar {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border: none;
+            background: #ff4d6d;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* 🎆 Fuegos artificiales */
+        .fuego {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ff4d6d;
+            animation: explosion 1s ease-out forwards;
+        }
+
+        @keyframes explosion {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0.5);
+            }
+        }
+
+        #anillo {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%) translateY(0);
+            font-size: 60px;
+            opacity: 0;
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        #galeria {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            animation: fadeIn 1s forwards;
+        }
+
+        #galeria img {
+            width: 80%;
+            max-width: 300px;
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff4d6d;
+            animation: zoom 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Música -->
+    <iframe id="yt" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+
+    <div id="sobre" onclick="abrirSobre()"></div>
+
+    <div id="carta">
+        <h1>Para el amor de mi vida ❤️</h1>
+        <p id="mensaje"></p>
+        <div class="contador">
+            Mi amor por ti comenzó hace:
+            <div id="tiempo"></div>
+        </div>
+
+        <div id="sorpresa" onclick="animacionFinal()">💍 ¿Quieres seguir escribiendo esta historia conmigo?</div>
+        <button id="descargar" onclick="descargarRecuerdo()">Descargar recuerdo</button>
+    </div>
+
+    <div class="arbol">
+        <div class="tronco"></div>
+        <div class="follaje" id="follaje"></div>
+    </div>
+
+    <div id="anillo">💍</div>
+
+    <div id="galeria">
+        <h2 style="color:white;margin-bottom:10px;">Nuestros Recuerdos ❤️</h2>
+        <img src="https://drive.google.com/uc?export=view&id=ID_FOTO_1">
+        <img src="https://drive.google.com/uc?export=view&id=ID_FOTO_2">
+        <img src="https://drive.google.com/uc?export=view&id=ID_FOTO_3">
+        <button onclick="descargarFotos()">Descargar todas</button>
+    </div>
+
+
+
+    <script>
+
+        /* 🌟 Estrellas */
+        for (let i = 0; i < 100; i++) {
+            let e = document.createElement("div");
+            e.className = "estrella";
+            e.style.left = Math.random() * window.innerWidth + "px";
+            e.style.top = Math.random() * window.innerHeight + "px";
+            document.body.appendChild(e);
+        }
+
+        /* 🎵 Música */
+        function musica() {
+            document.getElementById("yt").src =
+                "https://music.youtube.com/watch?v=--tHS9vUii0&si=gTGVHMZ_litM1WsT";
+        }
+
+        /* 💌 Abrir sobre */
+        function abrirSobre() {
+            document.getElementById("sobre").classList.add("abrir");
+            setTimeout(() => {
+                document.getElementById("sobre").style.display = "none";
+                document.getElementById("carta").style.display = "block";
+                document.getElementById("carta").classList.add("latir");
+                musica();
+                escribir();
+                formarCorazon();
+                setTimeout(() => { document.getElementById("sorpresa").style.display = "block"; }, 12000);
+            }, 1000);
+        }
+
+        /* ✍ Máquina escribir */
+        const texto = `Si pudiera elegir un lugar seguro, sería a tu lado.
+
+Cuanto más tiempo estoy contigo, más te amo.
+
+Eres mi lugar favorito en el mundo.
+
+— I Love You ❤️`;
+        let i = 0;
+        function escribir() {
+            if (i < texto.length) {
+                document.getElementById("mensaje").innerHTML += texto.charAt(i);
+                i++;
+                setTimeout(escribir, 40);
+            }
+        }
+
+        /* ⏳ Contador */
+        const fecha = new Date("2023-05-20 00:00:00");
+        setInterval(() => {
+            let ahora = new Date();
+            let diff = ahora - fecha;
+            let d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            let m = Math.floor((diff / (1000 * 60)) % 60);
+            let s = Math.floor((diff / 1000) % 60);
+            document.getElementById("tiempo").innerHTML =
+                `${d} días ${h} horas ${m} minutos ${s} segundos`;
+        }, 1000);
+
+        /* ❤️ Formar corazón progresivo */
+        function formarCorazon() {
+            let cont = document.getElementById("follaje");
+            let t = 0;
+            let intervalo = setInterval(() => {
+                if (t > Math.PI * 2) { clearInterval(intervalo); return; }
+                let x = 16 * Math.pow(Math.sin(t), 3);
+                let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+
+                let c = document.createElement("div");
+                c.innerHTML = "❤️";
+                c.className = "corazon";
+                c.style.left = (x * 8 + 150) + "px";
+                c.style.top = (-y * 8 + 120) + "px";
+                cont.appendChild(c);
+
+                t += 0.05;
+            }, 30);
+        }
+
+        /* 💍 Animación final */
+        function animacionFinal() {
+
+            document.body.classList.add("amanecer");
+
+            document.getElementById("carta").classList.add("brillo");
+
+            document.getElementById("anillo").style.opacity = "1";
+
+            document.getElementById("descargar").style.display = "block";
+
+            /* Fuegos */
+            for (let i = 0; i < 80; i++) {
+                let f = document.createElement("div");
+                f.className = "fuego";
+
+                f.style.left = Math.random() * window.innerWidth + "px";
+                f.style.top = Math.random() * window.innerHeight / 2 + "px";
+
+                f.style.setProperty("--x", (Math.random() * 200 - 100) + "px");
+                f.style.setProperty("--y", (Math.random() * 200 - 100) + "px");
+
+                document.body.appendChild(f);
+                setTimeout(() => f.remove(), 1000);
+            }
+
+            /* Mostrar galería después de 2 segundos */
+            setTimeout(() => {
+                document.getElementById("galeria").style.display = "flex";
+            }, 2000);
+
+        }
+
+
+        /* 📥 Descargar recuerdo */
+        function descargarFotos() {
+
+            const fotos = [
+                "https://drive.google.com/uc?export=download&id=ID_FOTO_1",
+                "https://drive.google.com/uc?export=download&id=ID_FOTO_2",
+                "https://drive.google.com/uc?export=download&id=ID_FOTO_3"
+            ];
+
+            fotos.forEach((url, index) => {
+                let a = document.createElement("a");
+                a.href = url;
+                a.download = "Recuerdo_" + (index + 1) + ".jpg";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
