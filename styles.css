@@ -1,137 +1,78 @@
-/* --- RESET Y FONDO --- */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-
-body {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    /* Fondo idéntico a la imagen: Azul oscuro noche */
-    background: radial-gradient(circle at center, #2b32b2, #141e30);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at bottom, #0d1b2a, #000000);
+    overflow: hidden; font-family: 'Arial', sans-serif; color: white;
 }
 
 /* --- SOBRE --- */
-#pantalla-sobre {
-    position: absolute; z-index: 100;
-    display: flex; flex-direction: column; align-items: center;
-    transition: opacity 1s;
+#pantalla-inicio {
+    position: fixed; inset: 0; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 100; background: rgba(0,0,0,0.9);
+    transition: 1s;
 }
-#sobre {
-    width: 200px; height: 140px; background: #ff4d6d;
-    position: relative; cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.5s;
+.sobre {
+    width: 200px; height: 140px; background: #c1121f; position: relative;
+    cursor: pointer; border-radius: 0 0 10px 10px;
 }
-#sobre::before {
-    content: ''; position: absolute; bottom: 0; left: 0;
+.tapa {
+    position: absolute; top: 0; width: 0; height: 0;
     border-left: 100px solid transparent; border-right: 100px solid transparent;
-    border-bottom: 90px solid #ff8fa3; z-index: 2;
+    border-top: 80px solid #780000; transform-origin: top; transition: 0.8s; z-index: 2;
 }
-.solapa {
-    position: absolute; top: 0; left: 0;
-    border-left: 100px solid transparent; border-right: 100px solid transparent;
-    border-top: 70px solid #ffb3c1; transform-origin: top;
-    transition: transform 0.5s 0.2s; z-index: 3;
-}
-#sobre.abierto .solapa { transform: rotateX(180deg); z-index: 0; }
-#sobre.abierto { transform: translateY(200px) scale(0); opacity: 0; transition: 1s; }
-.texto-instruccion { margin-top: 20px; font-size: 1.2rem; animation: latido 1.5s infinite; }
-
-/* --- ESCENARIO ÁRBOL --- */
-#escenario {
-    position: relative; width: 100%; height: 100%;
-    opacity: 0; transition: opacity 1s;
-    overflow: hidden;
+.corazon-cierre {
+    position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 30px; z-index: 3;
 }
 
-.arbol-container {
-    position: absolute;
-    bottom: -50px; left: 50%;
-    transform: translateX(-50%);
-    width: 500px; height: 500px;
-    transition: all 2s cubic-bezier(0.25, 1, 0.5, 1); /* Movimiento suave */
-    z-index: 10;
+/* --- ESCENARIO --- */
+#escenario { display: none; width: 100%; height: 100%; position: relative; opacity: 0; transition: 1.5s; }
+
+.contenedor-arbol {
+    position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 700px; transition: all 2s ease-in-out;
+}
+.tronco-realista { width: 100%; height: 100%; }
+.dibujar-tronco path {
+    stroke-dasharray: 1000; stroke-dashoffset: 1000;
+    animation: crecerTronco 4s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes crecerTronco { to { stroke-dashoffset: 0; } }
+
+/* --- HOJAS/CORAZONES --- */
+.corazon-hoja {
+    position: absolute; width: 14px; height: 14px;
+    background: radial-gradient(circle at 30% 30%, #ff4d6d, #800000);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
+    opacity: 0; animation: nacer 1s forwards;
+}
+.corazon-hoja::before, .corazon-hoja::after {
+    content: ''; position: absolute; width: 100%; height: 100%;
+    background: inherit; border-radius: 50%;
+}
+.corazon-hoja::before { left: -50%; }
+.corazon-hoja::after { top: -50%; }
+
+@keyframes nacer { to { opacity: 1; } }
+
+/* --- CAJA DE TEXTO --- */
+#mensaje-box {
+    position: absolute; left: -500px; top: 50%; transform: translateY(-50%);
+    width: 350px; background: rgba(0, 0, 0, 0.8); padding: 25px;
+    border-radius: 20px; border: 1px solid #ff4d6d;
+    box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+    text-align: center; transition: 2s;
+}
+#timer { font-size: 1.3rem; font-weight: bold; color: #ff4d6d; margin-top: 5px; }
+.btn-final {
+    background: #ff4d6d; color: white; border: none; padding: 12px 20px;
+    border-radius: 25px; cursor: pointer; margin-top: 20px;
 }
 
-/* El Tronco SVG */
-.tronco-svg {
-    width: 100%; height: 100%;
-    overflow: visible;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-}
-.tronco-svg path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000; /* Oculto al inicio */
-    transition: stroke-dashoffset 3s ease-in-out;
-}
-.crecer-tronco .tronco-svg path {
-    stroke-dashoffset: 0; /* Se dibuja solo */
-}
+/* Posiciones Finales */
+.arbol-izquierda { left: 20% !important; transform: translateX(-50%) scale(0.8) !important; }
+.mensaje-visible { left: 55% !important; }
 
-/* Movimiento a la Izquierda */
-.arbol-container.mover-izquierda {
-    left: 25%; /* Se mueve a la izquierda */
-    transform: translateX(-50%) scale(0.9);
-}
-
-/* Follaje */
-.follaje { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-
-/* --- CARTA --- */
-#carta {
-    position: absolute;
-    right: 10%; top: 50%;
-    transform: translateY(-40%); /* Un poco más arriba */
-    width: 380px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 15px;
-    color: #333;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-    opacity: 0;
-    display: none;
-    transition: opacity 1.5s ease;
-    z-index: 20;
-    text-align: center;
-}
-#carta.visible { display: block; opacity: 1; }
-
-.titulo { color: #d90429; margin-bottom: 15px; }
-.contenido-carta { font-size: 1.1rem; line-height: 1.5; min-height: 80px; margin-bottom: 20px; color: #555; }
-.contador-container { font-weight: bold; color: #ff4d6d; margin-bottom: 20px; background: #fff0f3; padding: 10px; border-radius: 8px; }
-.boton-final { width: 100%; padding: 12px; background: #ff4d6d; color: white; border: none; border-radius: 20px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
-
-/* --- EFECTOS --- */
-.corazon-viento {
-    position: absolute; color: #ff4d6d; font-size: 20px;
-    animation: volar 6s linear forwards; z-index: 5;
-}
-@keyframes volar {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-10vh) translateX(150px) rotate(360deg); opacity: 0; }
-}
-@keyframes latido { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-
-/* RESPONSIVO CELULAR */
-@media (max-width: 768px) {
-    .arbol-container.mover-izquierda {
-        left: 50%; bottom: 45%; /* Sube el árbol */
-        transform: translateX(-50%) scale(0.7);
-    }
-    #carta {
-        width: 90%; right: auto; left: 50%;
-        transform: translateX(-50%);
-        top: auto; bottom: 20px; /* Carta abajo */
-        padding: 20px;
-    }
-}
-
-/* Galería y Final */
-#anillo-container { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 50; }
-#anillo { font-size: 80px; animation: latido 1s infinite; }
-#luna { position: fixed; top: 40px; right: 40px; width: 60px; height: 60px; background: white; border-radius: 50%; box-shadow: 0 0 30px white; opacity: 0; transition: 2s; }
-#galeria { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; }
-#foto-actual { width: 90%; max-width: 400px; border: 5px solid white; border-radius: 10px; margin-bottom: 20px; }
+/* Galería */
+#galeria-final { position: fixed; inset: 0; background: black; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 200; }
+#foto-actual { max-width: 85vw; max-height: 70vh; border: 4px solid #ff4d6d; border-radius: 10px; }
